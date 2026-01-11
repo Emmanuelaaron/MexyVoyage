@@ -152,7 +152,7 @@ const Navbar = () => {
           >
             <Box
               component="img"
-              src="/img/icon/icon-10.png"
+              src="/img/icon/MexyOfficialLogo.png"
               alt="Mexy Voyage Safaris Logo"
               sx={{ height: 50, width: 'auto', display: { xs: 'none', md: 'block' } }}
               onError={(e) => {

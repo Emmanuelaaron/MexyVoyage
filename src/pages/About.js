@@ -82,7 +82,7 @@ const About = () => {
             >
               <Box
                 component="img"
-                src="/img/about.jpg"
+                src="/img/mexyVoyage.jpeg"
                 alt="About Mexy Voyage Safaris"
                 sx={{
                   position: 'absolute',

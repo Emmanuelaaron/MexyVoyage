@@ -128,51 +128,86 @@ const Home = () => {
           <Grid item xs={12} lg={6} sx={{ order: { xs: 2, lg: 1 } }}>
             <Box
               sx={{
-                background: 'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(/img/bg-1.jpg)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
+                position: 'relative',
                 minHeight: { xs: '50vh', lg: '90vh' },
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
                 p: { xs: 4, md: 8 },
+                overflow: 'hidden',
               }}
             >
-              <Typography
-                variant="h2"
+              {/* Video Background */}
+              <Box
+                component="video"
+                autoPlay
+                loop
+                muted
+                playsInline
                 sx={{
-                  color: 'white',
-                  mb: 4,
-                  fontWeight: 700,
-                  fontSize: { xs: '2rem', md: '3rem' },
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  zIndex: 0,
+                  pointerEvents: 'none',
                 }}
               >
-                Discover Amazing Destinations Around The World
-              </Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, flexWrap: 'wrap' }}>
-                <Button
-                  variant="contained"
-                  size="large"
-                  onClick={() => navigate('/about')}
-                  sx={{ px: 4, py: 1.5 }}
+                <source src="/video/mercelerVideo.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </Box>
+              {/* Dark Overlay */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  bgcolor: 'rgba(0, 0, 0, 0.7)',
+                  zIndex: 1,
+                }}
+              />
+              {/* Content */}
+              <Box sx={{ position: 'relative', zIndex: 2 }}>
+                <Typography
+                  variant="h2"
+                  sx={{
+                    color: 'white',
+                    mb: 4,
+                    fontWeight: 700,
+                    fontSize: { xs: '2rem', md: '3rem' },
+                  }}
                 >
-                  Read More
-                </Button>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                  <IconButton
-                    onClick={() => handlePlayVideo('/video/mercelerVideo.mp4')}
-                    sx={{
-                      bgcolor: 'white',
-                      width: 60,
-                      height: 60,
-                      '&:hover': { bgcolor: 'grey.200' },
-                    }}
+                  Discover Amazing Destinations Around The World
+                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, flexWrap: 'wrap' }}>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    onClick={() => navigate('/about')}
+                    sx={{ px: 4, py: 1.5 }}
                   >
-                    <PlayArrow sx={{ color: 'primary.main', fontSize: 32 }} />
-                  </IconButton>
-                  <Typography variant="body1" sx={{ color: 'white', display: { xs: 'none', sm: 'block' } }}>
-                    Watch Video
-                  </Typography>
+                    Read More
+                  </Button>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <IconButton
+                      onClick={() => handlePlayVideo('/video/mercelerVideo.mp4')}
+                      sx={{
+                        bgcolor: 'white',
+                        width: 60,
+                        height: 60,
+                        '&:hover': { bgcolor: 'grey.200' },
+                      }}
+                    >
+                      <PlayArrow sx={{ color: 'primary.main', fontSize: 32 }} />
+                    </IconButton>
+                    <Typography variant="body1" sx={{ color: 'white', display: { xs: 'none', sm: 'block' } }}>
+                      Watch Video
+                    </Typography>
+                  </Box>
                 </Box>
               </Box>
             </Box>
@@ -328,7 +363,7 @@ const Home = () => {
             >
               <Box
                 component="img"
-                src="/img/about.jpg"
+                src="/img/mexyVoyage.jpeg"
                 alt="About Mexy Voyage Safaris"
                 sx={{
                   position: 'absolute',
