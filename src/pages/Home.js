@@ -488,7 +488,7 @@ const Home = () => {
               variant="body2"
               sx={{ color: 'primary.main', mb: 2, fontWeight: 600 }}
             >
-              # Our Animals
+              # Our Destinations
             </Typography>
             <Typography variant="h3" sx={{ fontWeight: 700 }}>
               Let's See Our{' '}

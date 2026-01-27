@@ -64,15 +64,15 @@ const Footer = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <LocationOn sx={{ color: 'primary.main' }} />
-                <Typography variant="body2">Plot 2 Portal Road - Entebbe, Uganda, East Africa</Typography>
+                <Typography variant="body2" sx={{ color: 'white' }}>Plot 2 Portal Road - Entebbe, Uganda, East Africa</Typography>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Phone sx={{ color: 'primary.main' }} />
-                <Typography variant="body2">+256 753 944 614</Typography>
+                <Typography variant="body2" sx={{ color: 'white' }}>+256 753 944 614</Typography>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Email sx={{ color: 'primary.main' }} />
-                <Typography variant="body2">info@example.com</Typography>
+                <Typography variant="body2" sx={{ color: 'white' }}>info@example.com</Typography>
               </Box>
               <Box sx={{ display: 'flex', gap: 1, pt: 1 }}>
                 {/* <IconButton
@@ -227,7 +227,7 @@ const Footer = () => {
             <Typography variant="h6" sx={{ color: 'white', mb: 3, fontWeight: 600 }}>
               Newsletter
             </Typography>
-            <Typography variant="body2" sx={{ mb: 2 }}>
+            <Typography variant="body2" sx={{ mb: 2, color: 'white' }}>
               Stay updated with our latest tours, travel tips, and special offers.
             </Typography>
             <Box
