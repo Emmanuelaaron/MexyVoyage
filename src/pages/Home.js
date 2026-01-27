@@ -524,6 +524,9 @@ const Home = () => {
                     transform: 'translateY(-4px)',
                     boxShadow: '0 8px 16px rgba(0, 0, 0, 0.15)',
                   },
+                  '&:hover .destination-overlay': {
+                    opacity: 1,
+                  },
                 }}
                 onClick={() => navigate('/destinations')}
               >
@@ -540,6 +543,36 @@ const Home = () => {
                     e.target.src = 'https://via.placeholder.com/400x300?text=Destination';
                   }}
                 />
+                <Box
+                  className="destination-overlay"
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    bgcolor: 'rgba(0, 0, 0, 0.7)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-end',
+                    p: 3,
+                    opacity: 0,
+                    transition: 'opacity 0.3s ease',
+                  }}
+                >
+                  <Typography 
+                    variant="caption" 
+                    sx={{ 
+                      color: 'white', 
+                      textTransform: 'uppercase' 
+                    }}
+                  >
+                    {String(destination?.type || 'Destination')}
+                  </Typography>
+                  <Typography variant="h6" sx={{ color: 'white', fontWeight: 600 }}>
+                    {String(destination?.name || 'Unknown')}
+                  </Typography>
+                </Box>
               </Card>
             </Grid>
           ))}
