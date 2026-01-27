@@ -7,7 +7,6 @@ import {
   Button,
   Card,
   CardContent,
-  CardMedia,
 } from '@mui/material';
 import { CheckCircle } from '@mui/icons-material';
 import PageHeader from '../components/PageHeader';
@@ -64,64 +63,112 @@ const Packages = () => {
             </Button>
           </Grid>
         </Grid>
-        <Grid container spacing={4}>
+        <Grid container spacing={3}>
           {tourPackages.map((packageItem, index) => (
             <Grid item xs={12} md={4} key={index}>
               <Card
                 sx={{
                   position: 'relative',
                   overflow: 'hidden',
-                  bgcolor: 'rgba(0, 0, 0, 0.7)',
-                  color: 'white',
-                  minHeight: 500,
+                  borderRadius: 2,
+                  minHeight: { xs: 450, md: 500 },
+                  backgroundImage: `url(${packageItem.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                    zIndex: 1,
+                  },
                 }}
               >
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={packageItem.image}
-                  alt={packageItem.title}
-                  sx={{ opacity: 0.3 }}
-                  onError={(e) => {
-                    e.target.src = 'https://via.placeholder.com/400x200?text=Tour+Package';
+                <CardContent
+                  sx={{
+                    position: 'relative',
+                    zIndex: 2,
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    p: 4,
+                    color: 'white',
                   }}
-                />
-                <CardContent sx={{ position: 'relative', p: 4 }}>
+                >
                   <Typography
                     variant="h1"
                     sx={{
-                      fontSize: '6rem',
+                      fontSize: { xs: '4rem', md: '5rem' },
                       fontWeight: 700,
                       color: 'transparent',
                       WebkitTextStroke: '2px',
                       WebkitTextStrokeColor: 'primary.main',
+                      lineHeight: 1,
                       mb: 2,
                     }}
                   >
                     {String(packageItem?.number || '')}
                   </Typography>
-                  <Typography variant="h4" sx={{ mb: 2, fontWeight: 600 }}>
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      mb: 2,
+                      fontWeight: 600,
+                      textAlign: 'center',
+                      color: 'white',
+                    }}
+                  >
                     {String(packageItem?.title || '')}
                   </Typography>
-                  <Typography variant="h3" sx={{ color: 'primary.main', mb: 3, fontWeight: 700 }}>
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      color: 'primary.main',
+                      mb: 4,
+                      fontWeight: 700,
+                      textAlign: 'center',
+                    }}
+                  >
                     {String(packageItem?.price || '')}
                   </Typography>
-                  {packageItem?.features?.map((feature, idx) => (
-                    <Box key={idx} sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      <CheckCircle sx={{ color: 'primary.main', mr: 2 }} />
-                      <Typography variant="body1" sx={{ color: 'white' }}>{String(feature || '')}</Typography>
-                    </Box>
-                  )) || []}
+                  <Box sx={{ flexGrow: 1, mb: 3 }}>
+                    {packageItem?.features?.map((feature, idx) => (
+                      <Box
+                        key={idx}
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          mb: 2,
+                        }}
+                      >
+                        <CheckCircle
+                          sx={{
+                            color: 'primary.main',
+                            mr: 1.5,
+                            fontSize: '1.5rem',
+                          }}
+                        />
+                        <Typography variant="body1" sx={{ color: 'white' }}>
+                          {String(feature || '')}
+                        </Typography>
+                      </Box>
+                    )) || []}
+                  </Box>
                   <Button
                     variant="outlined"
                     fullWidth
                     sx={{
-                      mt: 3,
                       borderColor: 'white',
                       color: 'white',
+                      py: 1.5,
+                      fontSize: '1rem',
+                      fontWeight: 600,
                       '&:hover': {
-                        borderColor: 'primary.main',
-                        bgcolor: 'primary.main',
+                        borderColor: 'white',
+                        bgcolor: 'rgba(255, 255, 255, 0.1)',
                       },
                     }}
                   >
