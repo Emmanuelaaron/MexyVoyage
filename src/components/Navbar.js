@@ -16,6 +16,7 @@ import {
   List,
   ListItem,
   ListItemButton,
+  ListItemIcon,
   ListItemText,
   Avatar,
   Divider,
@@ -161,7 +162,23 @@ const Navbar = () => {
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => {
+                  handleDrawerToggle();
+                  navigate(user?.admin ? '/admin/dashboard' : '/user/dashboard');
+                }}
+              >
+                <ListItemIcon>
+                  <AccountCircle />
+                </ListItemIcon>
+                <ListItemText primary="Dashboard" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
               <ListItemButton onClick={handleLogout}>
+                <ListItemIcon>
+                  <Logout />
+                </ListItemIcon>
                 <ListItemText primary="Logout" />
               </ListItemButton>
             </ListItem>
@@ -342,6 +359,16 @@ const Navbar = () => {
                           {user?.email}
                         </Typography>
                       </Box>
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem
+                      onClick={() => {
+                        handleUserMenuClose();
+                        navigate(user?.admin ? '/admin/dashboard' : '/user/dashboard');
+                      }}
+                    >
+                      <AccountCircle sx={{ mr: 1 }} />
+                      Dashboard
                     </MenuItem>
                     <Divider />
                     <MenuItem onClick={handleLogout}>

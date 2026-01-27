@@ -22,14 +22,19 @@ import { signIn, clearError } from '../store/slices/authSlice';
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { isAuthenticated, loading, error } = useAppSelector((state) => state.auth);
+  const { isAuthenticated, user, loading, error } = useAppSelector((state) => state.auth);
 
   // Redirect if already authenticated
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/');
+    if (isAuthenticated && user) {
+      // Redirect based on user role
+      if (user.admin) {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/user/dashboard');
+      }
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, user, navigate]);
 
   // Clear error when component unmounts
   useEffect(() => {
@@ -51,8 +56,13 @@ const Login = () => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        await dispatch(signIn({ email: values.email, password: values.password })).unwrap();
-        navigate('/');
+        const userData = await dispatch(signIn({ email: values.email, password: values.password })).unwrap();
+        // Redirect based on user role
+        if (userData?.admin) {
+          navigate('/admin/dashboard');
+        } else {
+          navigate('/user/dashboard');
+        }
       } catch (error) {
         // Error is handled by Redux state
       }

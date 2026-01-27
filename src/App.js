@@ -22,7 +22,10 @@ import Testimonial from './pages/Testimonial';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import AdminDashboard from './pages/AdminDashboard';
+import UserDashboard from './pages/UserDashboard';
 import NotFound from './pages/NotFound';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const theme = createTheme({
   palette: {
@@ -141,6 +144,22 @@ function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
+                    <Route
+                      path="/admin/dashboard"
+                      element={
+                        <ProtectedRoute requireAdmin={true}>
+                          <AdminDashboard />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/user/dashboard"
+                      element={
+                        <ProtectedRoute>
+                          <UserDashboard />
+                        </ProtectedRoute>
+                      }
+                    />
                     <Route path="/404" element={<NotFound />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
