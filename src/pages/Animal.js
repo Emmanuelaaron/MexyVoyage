@@ -64,7 +64,7 @@ const Animal = () => {
             </Button>
           </Grid>
         </Grid>
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           {animals.map((animal, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <Card
@@ -72,51 +72,29 @@ const Animal = () => {
                   position: 'relative',
                   overflow: 'hidden',
                   cursor: 'pointer',
-                  '&:hover .animal-overlay': {
-                    opacity: 1,
+                  borderRadius: 2,
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.15)',
                   },
                 }}
                 onClick={() => handleImageClick(animal)}
               >
                 <CardMedia
                   component="img"
-                  height="300"
+                  sx={{
+                    width: '100%',
+                    height: { xs: 250, sm: 300, md: 350 },
+                    objectFit: 'cover',
+                  }}
                   image={animal.image}
                   alt={animal.name}
                   onError={(e) => {
                     e.target.src = 'https://via.placeholder.com/400x300?text=Animal';
                   }}
                 />
-                <Box
-                  className="animal-overlay"
-                  sx={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    bgcolor: 'rgba(0, 0, 0, 0.7)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-end',
-                    p: 3,
-                    opacity: 0,
-                    transition: 'opacity 0.3s',
-                  }}
-                >
-                  <Typography 
-                    variant="caption" 
-                    sx={{ 
-                      color: 'white', 
-                      textTransform: 'uppercase' 
-                    }}
-                  >
-                    {String(animal?.type || 'Animal')}
-                  </Typography>
-                  <Typography variant="h6" sx={{ color: 'white', fontWeight: 600 }}>
-                    {String(animal?.name || 'Unknown')}
-                  </Typography>
-                </Box>
               </Card>
             </Grid>
           ))}

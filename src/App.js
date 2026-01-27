@@ -1,13 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import { ThemeProvider, createTheme, CssBaseline, Box } from '@mui/material';
 import { Container } from '@mui/material';
+import { store } from './store/store';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Topbar from './components/Topbar';
 import Spinner from './components/Spinner';
 import BackToTop from './components/BackToTop';
+import AuthInitializer from './components/AuthInitializer';
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -17,6 +20,8 @@ import Packages from './pages/Packages';
 import TravelInfo from './pages/TravelInfo';
 import Testimonial from './pages/Testimonial';
 import Contact from './pages/Contact';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 import NotFound from './pages/NotFound';
 
 const theme = createTheme({
@@ -113,35 +118,41 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Box sx={{ overflowX: 'hidden', maxWidth: '100%', position: 'relative' }}>
-        <Router>
-          {loading ? (
-            <Spinner />
-          ) : (
-            <>
-              <Topbar />
-              <Navbar />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/service" element={<Service />} />
-                <Route path="/destinations" element={<Destinations />} />
-                <Route path="/packages" element={<Packages />} />
-                <Route path="/travel-info" element={<TravelInfo />} />
-                <Route path="/testimonial" element={<Testimonial />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/404" element={<NotFound />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-              <Footer />
-              <BackToTop />
-            </>
-          )}
-        </Router>
-      </Box>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Box sx={{ overflowX: 'hidden', maxWidth: '100%', position: 'relative' }}>
+          <AuthInitializer>
+            <Router>
+              {loading ? (
+                <Spinner />
+              ) : (
+                <>
+                  <Topbar />
+                  <Navbar />
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/service" element={<Service />} />
+                    <Route path="/destinations" element={<Destinations />} />
+                    <Route path="/packages" element={<Packages />} />
+                    <Route path="/travel-info" element={<TravelInfo />} />
+                    <Route path="/testimonial" element={<Testimonial />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/404" element={<NotFound />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                  <Footer />
+                  <BackToTop />
+                </>
+              )}
+            </Router>
+          </AuthInitializer>
+        </Box>
+      </ThemeProvider>
+    </Provider>
   );
 }
 

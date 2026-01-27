@@ -67,7 +67,7 @@ const Destinations = () => {
             </Button>
           </Grid>
         </Grid>
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           {destinations.map((destination, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <Card
@@ -75,6 +75,13 @@ const Destinations = () => {
                   position: 'relative',
                   overflow: 'hidden',
                   cursor: 'pointer',
+                  borderRadius: 2,
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.15)',
+                  },
                   '&:hover .destination-overlay': {
                     opacity: 1,
                   },
@@ -83,7 +90,11 @@ const Destinations = () => {
               >
                 <CardMedia
                   component="img"
-                  height="300"
+                  sx={{
+                    width: '100%',
+                    height: { xs: 250, sm: 300, md: 350 },
+                    objectFit: 'cover',
+                  }}
                   image={destination.image}
                   alt={destination.name}
                   onError={(e) => {
@@ -104,7 +115,7 @@ const Destinations = () => {
                     justifyContent: 'flex-end',
                     p: 3,
                     opacity: 0,
-                    transition: 'opacity 0.3s',
+                    transition: 'opacity 0.3s ease',
                   }}
                 >
                   <Typography 

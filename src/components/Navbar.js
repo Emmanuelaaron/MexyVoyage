@@ -17,16 +17,25 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  Avatar,
+  Divider,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import Logout from '@mui/icons-material/Logout';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { signOut } from '../store/slices/authSlice';
 
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const dispatch = useAppDispatch();
+  const { isAuthenticated, user } = useAppSelector((state) => state.auth);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [userMenuAnchor, setUserMenuAnchor] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -44,6 +53,20 @@ const Navbar = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleUserMenuClick = (event) => {
+    setUserMenuAnchor(event.currentTarget);
+  };
+
+  const handleUserMenuClose = () => {
+    setUserMenuAnchor(null);
+  };
+
+  const handleLogout = async () => {
+    await dispatch(signOut());
+    handleUserMenuClose();
+    navigate('/');
   };
 
   const handleDrawerToggle = () => {
@@ -112,6 +135,38 @@ const Navbar = () => {
             )}
           </React.Fragment>
         ))}
+        {!isAuthenticated ? (
+          <>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => navigate('/login')}>
+                <ListItemText primary="Login" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <Button variant="contained" fullWidth onClick={() => navigate('/signup')}>
+                  Sign Up
+                </Button>
+              </ListItemButton>
+            </ListItem>
+          </>
+        ) : (
+          <>
+            <ListItem disablePadding>
+              <ListItemButton onClick={handleUserMenuClick}>
+                <ListItemText 
+                  primary={user?.full_name || user?.email || 'User'} 
+                  secondary={user?.email}
+                />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton onClick={handleLogout}>
+                <ListItemText primary="Logout" />
+              </ListItemButton>
+            </ListItem>
+          </>
+        )}
         <ListItem disablePadding>
           <ListItemButton>
             <Button variant="contained" fullWidth startIcon={<ArrowForwardIcon />}>
@@ -255,13 +310,76 @@ const Navbar = () => {
                     </MenuItem>
                   ))}
               </Menu>
-            <Button
-              variant="contained"
-              endIcon={<ArrowForwardIcon />}
-              onClick={() => navigate('/contact')}
-            >
-              Book Now
-            </Button>
+              {isAuthenticated ? (
+                <>
+                  <IconButton
+                    onClick={handleUserMenuClick}
+                    sx={{ ml: 1 }}
+                  >
+                    <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main' }}>
+                      {user?.first_name?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || 'U'}
+                    </Avatar>
+                  </IconButton>
+                  <Menu
+                    anchorEl={userMenuAnchor}
+                    open={Boolean(userMenuAnchor)}
+                    onClose={handleUserMenuClose}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                  >
+                    <MenuItem disabled>
+                      <Box>
+                        <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                          {user?.full_name || 'User'}
+                        </Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          {user?.email}
+                        </Typography>
+                      </Box>
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem onClick={handleLogout}>
+                      <Logout sx={{ mr: 1 }} />
+                      Logout
+                    </MenuItem>
+                  </Menu>
+                </>
+              ) : (
+                <Box sx={{ display: 'flex', gap: 1, ml: 1 }}>
+                  <Button
+                    onClick={() => navigate('/login')}
+                    sx={{
+                      color: '#282F34',
+                      '&:hover': {
+                        color: 'primary.main',
+                        bgcolor: 'transparent',
+                      },
+                    }}
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    onClick={() => navigate('/signup')}
+                  >
+                    Sign Up
+                  </Button>
+                </Box>
+              )}
+              <Button
+                variant="contained"
+                endIcon={<ArrowForwardIcon />}
+                onClick={() => navigate('/contact')}
+                sx={{ ml: 1 }}
+              >
+                Book Now
+              </Button>
             </>
           )}
         </Toolbar>

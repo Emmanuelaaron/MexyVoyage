@@ -19,6 +19,7 @@ import {
   Facebook,
   YouTube,
   LinkedIn,
+  Instagram,
 } from '@mui/icons-material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -74,7 +75,7 @@ const Footer = () => {
                 <Typography variant="body2">info@example.com</Typography>
               </Box>
               <Box sx={{ display: 'flex', gap: 1, pt: 1 }}>
-                <IconButton
+                {/* <IconButton
                   size="small"
                   sx={{
                     border: '1px solid',
@@ -117,6 +118,14 @@ const Footer = () => {
                   }}
                 >
                   <LinkedIn fontSize="small" />
+                </IconButton> */}
+
+                <IconButton 
+                  size="small" 
+                  sx={{ bgcolor: 'white', color: 'primary.main', '&:hover': { bgcolor: 'grey.200' } }}
+                  onClick={() => window.open('https://www.instagram.com/mexyvoyagesafaris?igsh=MXV6cDJ2a2F3c3Zjeg%3D%3D&utm_source=qr', '_blank', 'noopener,noreferrer')}
+                >
+                  <Instagram fontSize="small" />
                 </IconButton>
               </Box>
             </Box>
@@ -219,7 +228,7 @@ const Footer = () => {
               Newsletter
             </Typography>
             <Typography variant="body2" sx={{ mb: 2 }}>
-              Dolor amet sit justo amet elitr clita ipsum elitr est.
+              Stay updated with our latest tours, travel tips, and special offers.
             </Typography>
             <Box
               component="form"
@@ -267,32 +276,8 @@ const Footer = () => {
               sx={{ textAlign: { xs: 'center', md: 'left' } }}
             >
               &copy;{' '}
-              <Link sx={{ color: 'primary.main', textDecoration: 'none' }}>Your Site Name</Link>,
+              <Link sx={{ color: 'primary.main', textDecoration: 'none' }}>Mexy Voyage Safaris</Link>,
               All Right Reserved.
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Typography 
-              variant="body2" 
-              sx={{ textAlign: { xs: 'center', md: 'right' } }}
-            >
-              Designed By{' '}
-              <Link
-                href="https://htmlcodex.com"
-                target="_blank"
-                sx={{ color: 'primary.main', textDecoration: 'none' }}
-              >
-                HTML Codex
-              </Link>
-              <br />
-              Distributed By:{' '}
-              <Link
-                href="https://themewagon.com"
-                target="_blank"
-                sx={{ color: 'primary.main', textDecoration: 'none' }}
-              >
-                ThemeWagon
-              </Link>
             </Typography>
           </Grid>
         </Grid>

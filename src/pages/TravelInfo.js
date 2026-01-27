@@ -49,8 +49,8 @@ const TravelInfo = () => {
                       color: 'white',
                     }}
                   >
-                    <Typography variant="body1">{String(schedule?.day || '')}</Typography>
-                    <Typography variant="body1">{String(schedule?.hours || '')}</Typography>
+                    <Typography variant="body1" sx={{ color: 'white' }}>{String(schedule?.day || '')}</Typography>
+                    <Typography variant="body1" sx={{ color: 'white' }}>{String(schedule?.hours || '')}</Typography>
                   </Box>
                 ))}
               </Box>
@@ -68,6 +68,7 @@ const TravelInfo = () => {
                   '& td': {
                     p: 2,
                     borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
+                    color: 'white',
                   },
                   '& tr:last-child td': {
                     borderBottom: 'none',
@@ -86,15 +87,15 @@ const TravelInfo = () => {
                   <tr>
                     <td>Booking</td>
                     <td>
-                      <Typography variant="body2">+256 753 944 614</Typography>
-                      <Typography variant="body2">booking@mexyvoyages.com</Typography>
+                      <Typography variant="body2" sx={{ color: 'white' }}>+256 753 944 614</Typography>
+                      <Typography variant="body2" sx={{ color: 'white' }}>booking@mexyvoyages.com</Typography>
                     </td>
                   </tr>
                   <tr>
                     <td>Support</td>
                     <td>
-                      <Typography variant="body2">+256 753 944 614</Typography>
-                      <Typography variant="body2">support@mexyvoyages.com</Typography>
+                      <Typography variant="body2" sx={{ color: 'white' }}>+256 753 944 614</Typography>
+                      <Typography variant="body2" sx={{ color: 'white' }}>support@mexyvoyages.com</Typography>
                     </td>
                   </tr>
                 </tbody>

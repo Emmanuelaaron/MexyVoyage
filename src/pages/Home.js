@@ -509,7 +509,7 @@ const Home = () => {
             </Button>
           </Grid>
         </Grid>
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           {destinations.slice(0, 6).map((destination, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <Card
@@ -517,50 +517,29 @@ const Home = () => {
                   position: 'relative',
                   overflow: 'hidden',
                   cursor: 'pointer',
-                  '&:hover .animal-overlay': {
-                    opacity: 1,
+                  borderRadius: 2,
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.15)',
                   },
                 }}
+                onClick={() => navigate('/destinations')}
               >
                 <CardMedia
                   component="img"
-                  height="300"
+                  sx={{
+                    width: '100%',
+                    height: { xs: 250, sm: 300, md: 350 },
+                    objectFit: 'cover',
+                  }}
                   image={destination.image}
                   alt={destination.name}
                   onError={(e) => {
                     e.target.src = 'https://via.placeholder.com/400x300?text=Destination';
                   }}
                 />
-                <Box
-                  className="animal-overlay"
-                  sx={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    bgcolor: 'rgba(0, 0, 0, 0.7)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-end',
-                    p: 3,
-                    opacity: 0,
-                    transition: 'opacity 0.3s',
-                  }}
-                >
-                  <Typography 
-                    variant="caption" 
-                    sx={{ 
-                      color: 'white', 
-                      textTransform: 'uppercase' 
-                    }}
-                  >
-                    {String(destination?.type || 'Destination')}
-                  </Typography>
-                  <Typography variant="h6" sx={{ color: 'white', fontWeight: 600 }}>
-                    {String(destination?.name || 'Unknown')}
-                  </Typography>
-                </Box>
               </Card>
             </Grid>
           ))}
@@ -595,8 +574,8 @@ const Home = () => {
                       color: 'white',
                     }}
                   >
-                    <Typography variant="body1">{String(schedule?.day || '')}</Typography>
-                    <Typography variant="body1">{String(schedule?.hours || '')}</Typography>
+                    <Typography variant="body1" sx={{ color: 'white' }}>{String(schedule?.day || '')}</Typography>
+                    <Typography variant="body1" sx={{ color: 'white' }}>{String(schedule?.hours || '')}</Typography>
                   </Box>
                 ))}
               </Box>
@@ -614,6 +593,7 @@ const Home = () => {
                   '& td': {
                     p: 2,
                     borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
+                    color: 'white',
                   },
                   '& tr:last-child td': {
                     borderBottom: 'none',
@@ -632,15 +612,15 @@ const Home = () => {
                   <tr>
                     <td>Booking</td>
                     <td>
-                      <Typography variant="body2">+256 753 944 614</Typography>
-                      <Typography variant="body2">booking@mexyvoyages.com</Typography>
+                      <Typography variant="body2" sx={{ color: 'white' }}>+256 753 944 614</Typography>
+                      <Typography variant="body2" sx={{ color: 'white' }}>booking@mexyvoyages.com</Typography>
                     </td>
                   </tr>
                   <tr>
                     <td>Support</td>
                     <td>
-                      <Typography variant="body2">+256 753 944 614</Typography>
-                      <Typography variant="body2">support@example.com</Typography>
+                      <Typography variant="body2" sx={{ color: 'white' }}>+256 753 944 614</Typography>
+                      <Typography variant="body2" sx={{ color: 'white' }}>support@example.com</Typography>
                     </td>
                   </tr>
                 </tbody>
@@ -674,64 +654,112 @@ const Home = () => {
             </Button>
           </Grid>
         </Grid>
-        <Grid container spacing={4}>
+        <Grid container spacing={3}>
           {tourPackages.map((packageItem, index) => (
             <Grid item xs={12} md={4} key={index}>
               <Card
                 sx={{
                   position: 'relative',
                   overflow: 'hidden',
-                  bgcolor: 'rgba(0, 0, 0, 0.7)',
-                  color: 'white',
-                  minHeight: 500,
+                  borderRadius: 2,
+                  minHeight: { xs: 450, md: 500 },
+                  backgroundImage: `url(${packageItem.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                    zIndex: 1,
+                  },
                 }}
               >
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={packageItem.image}
-                  alt={packageItem.title}
-                  sx={{ opacity: 0.3 }}
-                  onError={(e) => {
-                    e.target.src = 'https://via.placeholder.com/400x200?text=Tour+Package';
+                <CardContent
+                  sx={{
+                    position: 'relative',
+                    zIndex: 2,
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    p: 4,
+                    color: 'white',
                   }}
-                />
-                <CardContent sx={{ position: 'relative', p: 4 }}>
+                >
                   <Typography
                     variant="h1"
                     sx={{
-                      fontSize: '6rem',
+                      fontSize: { xs: '4rem', md: '5rem' },
                       fontWeight: 700,
                       color: 'transparent',
                       WebkitTextStroke: '2px',
                       WebkitTextStrokeColor: 'primary.main',
+                      lineHeight: 1,
                       mb: 2,
                     }}
                   >
                     {String(packageItem?.number || '')}
                   </Typography>
-                  <Typography variant="h4" sx={{ mb: 2, fontWeight: 600 }}>
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      mb: 2,
+                      fontWeight: 600,
+                      textAlign: 'center',
+                      color: 'white',
+                    }}
+                  >
                     {String(packageItem?.title || '')}
                   </Typography>
-                  <Typography variant="h3" sx={{ color: 'primary.main', mb: 3, fontWeight: 700 }}>
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      color: 'primary.main',
+                      mb: 4,
+                      fontWeight: 700,
+                      textAlign: 'center',
+                    }}
+                  >
                     {String(packageItem?.price || '')}
                   </Typography>
-                  {packageItem?.features?.map((feature, idx) => (
-                    <Box key={idx} sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                      <CheckCircle sx={{ color: 'primary.main', mr: 2 }} />
-                      <Typography variant="body1" sx={{ color: 'white' }}>{String(feature || '')}</Typography>
-                    </Box>
-                  )) || []}
+                  <Box sx={{ flexGrow: 1, mb: 3 }}>
+                    {packageItem?.features?.map((feature, idx) => (
+                      <Box
+                        key={idx}
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          mb: 2,
+                        }}
+                      >
+                        <CheckCircle
+                          sx={{
+                            color: 'primary.main',
+                            mr: 1.5,
+                            fontSize: '1.5rem',
+                          }}
+                        />
+                        <Typography variant="body1" sx={{ color: 'white' }}>
+                          {String(feature || '')}
+                        </Typography>
+                      </Box>
+                    )) || []}
+                  </Box>
                   <Button
                     variant="outlined"
                     fullWidth
                     sx={{
-                      mt: 3,
                       borderColor: 'white',
                       color: 'white',
+                      py: 1.5,
+                      fontSize: '1rem',
+                      fontWeight: 600,
                       '&:hover': {
-                        borderColor: 'primary.main',
-                        bgcolor: 'primary.main',
+                        borderColor: 'white',
+                        bgcolor: 'rgba(255, 255, 255, 0.1)',
                       },
                     }}
                   >
